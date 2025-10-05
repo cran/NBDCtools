@@ -8,6 +8,20 @@ knitr::opts_chunk$set(
 ## ----setup--------------------------------------------------------------------
 library(NBDCtools)
 
+
+## ----include=FALSE, echo=FALSE------------------------------------------------
+data_env <- getOption("NBDCtoolsData.env")
+purrr::walk(
+  c("lst_dds", "lst_levels", "lst_sessions"),
+  ~ {
+    value <- readRDS(system.file(
+      "extdata", "meta_internal", glue::glue("{.x}.rds"),
+      package = "NBDCtools"
+    ))
+    assign(.x, value = value, envir = data_env)
+  }
+)
+
 ## -----------------------------------------------------------------------------
 dir_abcd <- system.file("extdata", "phenotype", package = "NBDCtools")
 list.files(dir_abcd)
